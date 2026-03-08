@@ -5,7 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
+<body class="bg-gray-100">
+
+<!-- this is navbar section  -->
+
+<nav class="bg-white p-4 shadow flex justify-between max-w-7xl mx-auto px-6 py-6">
+
+  <h2 class="font-bold text-xl">GitHub Issues Tracker</h2>
+
+  <div>
+    <input id="searchInput" class="border p-2 rounded" placeholder="Search issues">
+
+    <button onclick="searchIssue()" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
+    <button onclick="openNewIssueModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md">+ New Issue</button>
+
+  </div>
+
+</nav>
+
+<!-- this is issue count section  -->
+
+<!-- this is tabs section  -->
+
+<div class="mb-6 flex gap-4 mt-6 max-w-7xl mx-auto py-6">
+
+  <button class="tabBtn bg-red-500 text-white px-4 py-2 rounded" onclick="changeTab('all', this)">All</button>
+  <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="changeTab('open', this)">Open</button>
+  <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="changeTab('closed', this)">Closed</button>
+
+</div>
+
+<!-- this is loading section  -->
+
+
+
+
+<!-- this is issues grid section  -->
+
+
+
+
+<!-- this is modal section  -->
+
+
+
+<!-- this is new issue modal section  -->
+
+
+
 
 
   <script src="./script.js/main.js"></script>
