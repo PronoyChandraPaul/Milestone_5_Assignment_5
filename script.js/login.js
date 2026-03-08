@@ -6,7 +6,7 @@ const password = document.getElementById("password").value;
 if(username === "admin" && password === "admin123"){
 
 localStorage.setItem("login", "true");
-window.location.href = "main.html";
+  window.location.href = "main.html";
 
 }else{
 
