@@ -1,88 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <title>Issues</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="bg-gray-100">
 
-<!-- this is navbar section  -->
+  <!-- this is navbar section -->
 
-<nav class="bg-white p-4 shadow flex justify-between max-w-7xl mx-auto px-6 py-6">
+  <nav class="bg-white p-4 shadow flex justify-between max-w-7xl mx-auto px-6 py-6">
 
-  <h2 class="font-bold text-xl">GitHub Issues Tracker</h2>
+    <h2 class="font-bold text-xl">GitHub Issues Tracker</h2>
 
-  <div>
-    <input id="searchInput" class="border p-2 rounded" placeholder="Search issues">
+    <div>
+      <input id="searchInput" class="border p-2 rounded" placeholder="Search issues">
 
-    <button onclick="searchIssue()" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
-    <button onclick="openNewIssueModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md">+ New Issue</button>
+      <button onclick="searchIssue()" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
+      <button onclick="openNewIssueModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md">+ New Issue</button>
 
-  </div>
-
-</nav>
-
-<!-- this is issue count section  -->
-<div class="p-6 mt-6 max-w-7xl mx-auto px-6 py-6 flex justify-between border rounded-lg bg-white shadow-sm">
-
-  <div class="flex gap-3 items-start">
-
-    <span class="text-xl"><img src="./assets/Aperture.png" alt=""></span>
-
-    <div class="flex flex-col">
-      <p>
-        Total Issues:
-        <span id="issueCount" class="font-bold">0</span>
-        Issues
-      </p>
-      <p class="text-sm text-gray-500 mt-1">
-        Track and manage your project issues
-      </p>
     </div>
+   
+
+  </nav>
+
+
+  <!--this is issue count section -->
+
+  <div class="p-6 mt-6 max-w-7xl mx-auto px-6 py-6 flex justify-between border rounded-lg bg-white shadow-sm">
+
+    <div class="flex gap-3 items-start">
+
+      <span class="text-xl"><img src="./assets/Aperture.png" alt=""></span>
+
+      <div class="flex flex-col">
+        <p>
+          Total Issues:
+          <span id="issueCount" class="font-bold">0</span>
+          Issues
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+          Track and manage your project issues
+        </p>
+      </div>
+    </div>
+
+    <div class="flex gap-2">
+
+      <span class="text-green-600">● Open</span>
+      <span class="text-purple-600">● Closed</span>
+
+    </div>
+
   </div>
 
-  <div class="flex gap-2">
 
-    <span class="text-green-600">● Open</span>
-    <span class="text-purple-600">● Closed</span>
+  <!--this is tabs section-->
+
+  <div class="mb-6 flex gap-4 mt-6 max-w-7xl mx-auto py-6">
+
+    <button class="tabBtn bg-red-500 text-white px-4 py-2 rounded" onclick="changeTab('all', this)">All</button>
+    <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="changeTab('open', this)">Open</button>
+    <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded"
+      onclick="changeTab('closed', this)">Closed</button>
 
   </div>
 
-</div>
-<!-- this is tabs section  -->
 
-<div class="mb-6 flex gap-4 mt-6 max-w-7xl mx-auto py-6">
+  <!--this is spinner section-->
 
-  <button class="tabBtn bg-red-500 text-white px-4 py-2 rounded" onclick="changeTab('all', this)">All</button>
-  <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="changeTab('open', this)">Open</button>
-  <button class="tabBtn bg-gray-300 text-gray-700 px-4 py-2 rounded" onclick="changeTab('closed', this)">Closed</button>
+  <div id="spinner" class="text-center hidden">
 
-</div>
+    Loading...
 
-<!-- this is loading section  -->
-
-<div id="spinner" class="text-center hidden">
-  Loading...
-</div>
-
-<!-- this is issues grid section  -->
-
-<div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-10 max-w-7xl mx-auto py-6">
-</div>
+  </div>
 
 
-<!-- this is modal section  -->
+  <!--this is  issues grid section-->
 
+  <div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-10 max-w-7xl mx-auto py-6">
 
-
-<!-- this is new issue modal section  -->
+  </div>
 
 
 
 
+
+  <!-- Modal -->
+
+  <div id="modal" class="fixed inset-0  items-center justify-center bg-black/40 hidden">
+
+    <div class="bg-white w-full max-w-lg rounded-xl p-6 shadow-lg">
+
+      <!-- Title -->
+      <h2 id="modalTitle" class="text-xl font-bold text-gray-800 mb-3">0</h2>
+
+      <!-- Status + Author -->
+      <div class="flex items-center gap-3 text-sm mb-4">
+
+        <span id="modalStatus" class="px-3 py-1 rounded-md text-white text-xs font-semibold"></span>
+
+        <span class="text-gray-400">•</span>
+
+        <span class="text-gray-500">
+          Opened by <span id="modalAuthor"></span>
+        </span>
+
+        <span class="text-gray-400">•</span>
+
+        <span id="modalDate" class="text-gray-400"></span>
+
+      </div>
+
+      <!-- Labels -->
+      <div id="modalLabels" class="flex gap-3 mb-4 flex-wrap"></div>
+
+      <!-- Description -->
+      <p id="modalDesc" class="text-gray-500 text-sm mb-6"></p>
+
+      <!-- Bottom Info -->
+      <div class="bg-gray-50 rounded-lg p-4 flex justify-between text-sm mb-4">
+
+        <div>
+          <p class="text-gray-400">Assignee:</p>
+          <p id="modalAssignee" class="text-gray-600"></p>
+        </div>
+
+        <div>
+          <p class="text-gray-400">Priority:</p>
+          <span id="modalPriority" class="px-3 py-1 rounded-full text-xs font-semibold"></span>
+        </div>
+
+      </div>
+
+      <!-- Close Button -->
+      <div class="flex justify-end">
+        <button onclick="closeModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+          Close
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+  <!-- New Issue Modal -->
+
+  <div id="newIssueModal" class="fixed inset-0 items-center justify-center bg-black/40 hidden">
+
+    <div class="bg-white w-full max-w-md p-6 rounded-xl">
+
+      <h2 class="text-xl font-bold mb-4">Create New Issue</h2>
+
+      <input id="issueTitle" class="border w-full p-2 mb-3 rounded" placeholder="Issue Title">
+
+      <textarea id="issueDesc" class="border w-full p-2 mb-3 rounded" placeholder="Description"></textarea>
+
+      <label for="issuePriority" class="block text-sm font-medium mb-1">
+        Priority
+      </label>
+
+      <Select id="issuePriority" class="border w-full p-2 mb-4 rounded">
+
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+
+      </Select>
+
+      <div class="flex justify-end gap-3">
+
+        <button onclick="closeNewIssueModal()" class="px-4 py-2 border rounded">
+          Cancel
+        </button>
+
+        <button onclick="addIssue()" class="bg-purple-600 text-white px-4 py-2 rounded">
+          Add Issue
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <script src="./script.js/main.js"></script>
+
 </body>
+
+
 </html>

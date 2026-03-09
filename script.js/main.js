@@ -1,13 +1,13 @@
 let issues = [];
 const container = document.getElementById("issuesContainer");
-const loading = document.getElementById("loading");
+const spinner = document.getElementById("spinner");
 const issueCount = document.getElementById("issueCount");
 
-// this is load issues section
+/* Load Issues */
 
 async function loadIssues(type) {
 
-loading.classList.remove("hidden");
+spinner.classList.remove("hidden");
 
 const res = await fetch(
 "https://phi-lab-server.vercel.app/api/v1/lab/issues"
@@ -17,7 +17,7 @@ const data = await res.json();
 
 issues = data.data;
 
-// this is filter section
+/* Filter */
 
 let filteredIssues = issues;
 
@@ -29,37 +29,35 @@ if(type === "closed"){
 filteredIssues = issues.filter(issue => issue.status === "closed");
 }
 
-// this is count section
+/* Count */
 
 issueCount.innerText = filteredIssues.length;
 
-// this is display section
+/* Display */
+
 displayIssues(filteredIssues);
 
-loading.classList.add("hidden");
+spinner.classList.add("hidden");
 
 }
 
-// this is display issues section
+/* Display Issues */
+
 function displayIssues(data){
 
-  container.innerHTML = "";
+container.innerHTML = "";
 
-  data.forEach(issue => {
+data.forEach(issue => {
 
-    //  border color 
-    
-    let borderColor = "border-emerald-500";
-  
-    if (issue.status === "closed") {
-      borderColor = "border-purple-500";
-    }
+/* Border color */
 
-  });
+let borderColor = "border-emerald-500";
 
+if(issue.status === "closed"){
+borderColor = "border-purple-500";
 }
 
-// this is priority color section
+/* Priority color */
 
 let priorityColor = "bg-red-50 text-red-500 border-red-100";
 
@@ -129,18 +127,179 @@ ${issue.createdAt}
 
 `;
 
+/* Card click modal */
+
+card.addEventListener("click", () => openModal(issue));
+
+container.appendChild(card);
+
+});
+
+}
+
+/* Modal */
+
+function openModal(issue){
+
+document.getElementById("modalTitle").innerText = issue.title;
+document.getElementById("modalAuthor").innerText = issue.author;
+document.getElementById("modalDate").innerText = issue.createdAt;
+document.getElementById("modalDesc").innerText = issue.description;
+document.getElementById("modalAssignee").innerText = issue.author;
+
+document.getElementById("modalPriority").innerText = issue.priority;
+
+/* Status */
+
+const status = document.getElementById("modalStatus");
+
+status.innerText = issue.status;
+
+if(issue.status === "open"){
+
+status.className =
+"px-3 py-1 rounded-md text-white text-xs font-semibold bg-green-500";
+
+}
+else{
+
+status.className =
+"px-3 py-1 rounded-md text-white text-xs font-semibold bg-purple-500";
+
+}
+
+/* Labels */
+
+const labels = document.getElementById("modalLabels");
+
+labels.innerHTML =
+issue.labels?.map(label => `
+<span class="bg-yellow-100 text-yellow-700 text-xs px-3 py-1 rounded-full font-semibold">
+${label}
+</span>
+`).join("") || "";
+
+/* Show modal */
+
+  document.getElementById("modal").classList.remove("hidden");
+modal.classList.add("flex");
+
+}
+
+/* Close modal */
+
+function closeModal(){
+
+document.getElementById("modal").classList.add("hidden");
+
+}
+
+/* Search */
+
+async function searchIssue(){
+
+const text = document.getElementById("searchInput").value;
+
+spinner.classList.remove("hidden");
+
+const res = await fetch(
+`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`
+);
+
+const data = await res.json();
+
+issueCount.innerText = data.data.length;
+
+displayIssues(data.data);
+
+spinner.classList.add("hidden");
+
+}
+
+/* Tabs */
+
+function changeTab(type,btn){
+
+document.querySelectorAll(".tabBtn").forEach(button=>{
+
+button.classList.remove("bg-red-500","text-white");
+
+button.classList.add("bg-gray-300","text-gray-700");
+
+});
+
+btn.classList.remove("bg-gray-300","text-gray-700");
+
+btn.classList.add("bg-red-500","text-white");
+
+loadIssues(type);
+
+}
+
+/* Default load */
+
+loadIssues("all");
+
+/* New Issue Modal */
+
+function openNewIssueModal(){
+
+const modal = document.getElementById("newIssueModal");
+
+modal.classList.remove("hidden");
+modal.classList.add("flex");
+
+}
 
 
-// this is card click modal section
+function closeNewIssueModal(){
 
-// this is modal section
+const modal = document.getElementById("newIssueModal");
 
-// this is labels section
+modal.classList.add("hidden");
+modal.classList.remove("flex");
 
-// this is close modal section
+}
 
-// this is tabs section
 
-// this is default load section 
+/* Add Issue */
 
-// this is add issue section 
+function addIssue(){
+
+const title = document.getElementById("issueTitle").value;
+
+const desc = document.getElementById("issueDesc").value;
+
+const priority = document.getElementById("issuePriority").value;
+
+const newIssue = {
+
+id: Date.now(),
+
+title: title,
+
+description: desc,
+
+priority: priority,
+
+author: "You",
+
+status: "open",
+
+createdAt: "Today",
+
+labels: ["new"]
+
+};
+
+issues.unshift(newIssue);
+
+/* Update UI */
+
+displayIssues(issues);
+
+issueCount.innerText = issues.length;
+
+closeNewIssueModal();
+
+}
