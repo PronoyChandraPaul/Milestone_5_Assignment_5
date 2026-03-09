@@ -6,35 +6,34 @@
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
 
-<div class="bg-white p-8 rounded shadow w-96 text-center">
-  <div class="flex justify-center">
-    <img src="./assets/github-logo.png" alt="">
+<div class="bg-white p-6 md:p-8 rounded shadow w-full max-w-sm text-center">
+  <div class="flex justify-center mb-4">
+    <img src="./assets/github-logo.png" alt="GitHub Logo" class="w-16 md:w-20">
   </div>
-  <h1 class="text-2xl font-bold mb-2">GitHub Issues Tracker</h1>
-  <p class="text-gray-500 mb-6">Sing in to manage your issue</p>
+  <h1 class="text-xl md:text-2xl font-bold mb-2">GitHub Issues Tracker</h1>
+  <p class="text-gray-500 mb-6 text-sm md:text-base">Sign in to manage your issue</p>
+
+  <input id="userName" type="text" class="border w-full p-2 mb-1 rounded" placeholder="Username">
+  <p class="flex mb-4 text-purple-600 text-sm">Default: admin</p>
   
-  <input id="userName" type="text" class="border w-full p-2 mb-1" placeholder="Username">
-  <p class="flex mb-4 text-purple-600">Default: admin</p>
+  <input id="password" type="password" class="border w-full p-2 mb-1 rounded" placeholder="Password">
+  <p class="flex mb-4 text-purple-600 text-sm">Default: admin123</p>
   
-  <input id="password" type="password" class="border w-full p-2 mb-1" placeholder="Password">
-  <p class="flex mb-4 text-purple-600">Default: admin123</p>
-  
-  <button onclick="login()" class="bg-blue-500 text-white w-full p-2 rounded">Sign In</button>
+  <button onclick="login()" class="bg-blue-500 hover:bg-blue-600 text-white w-full p-2 rounded">Sign In</button>
   
   <div class="flex items-center my-4">
     <hr class="grow border-t border-gray-400">
-    <span class="mx-4 text-gray-700">OR</span>
+    <span class="mx-4 text-gray-700 text-sm">OR</span>
     <hr class="grow border-t border-gray-400">
   </div>
   <p class="text-sm text-gray-500 mt-4">
     Demo Credentials:
   </p>
-  <div class="mt-5">
+  <div class="mt-5 text-sm">
     <p> <span class="font-bold">Username:</span><span> admin</span></p>
     <p> <span class="font-bold">Password:</span><span> admin123</span></p>
-  
   
   </div>
 </div>
