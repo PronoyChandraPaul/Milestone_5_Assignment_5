@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
 
@@ -24,7 +25,32 @@
 </nav>
 
 <!-- this is issue count section  -->
+<div class="p-6 mt-6 max-w-7xl mx-auto px-6 py-6 flex justify-between border rounded-lg bg-white shadow-sm">
 
+  <div class="flex gap-3 items-start">
+
+    <span class="text-xl"><img src="./assets/Aperture.png" alt=""></span>
+
+    <div class="flex flex-col">
+      <p>
+        Total Issues:
+        <span id="issueCount" class="font-bold">0</span>
+        Issues
+      </p>
+      <p class="text-sm text-gray-500 mt-1">
+        Track and manage your project issues
+      </p>
+    </div>
+  </div>
+
+  <div class="flex gap-2">
+
+    <span class="text-green-600">● Open</span>
+    <span class="text-purple-600">● Closed</span>
+
+  </div>
+
+</div>
 <!-- this is tabs section  -->
 
 <div class="mb-6 flex gap-4 mt-6 max-w-7xl mx-auto py-6">
@@ -37,12 +63,14 @@
 
 <!-- this is loading section  -->
 
-
-
+<div id="spinner" class="text-center hidden">
+  Loading...
+</div>
 
 <!-- this is issues grid section  -->
 
-
+<div id="issuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pb-10 max-w-7xl mx-auto py-6">
+</div>
 
 
 <!-- this is modal section  -->
